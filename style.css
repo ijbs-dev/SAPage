@@ -1,0 +1,37 @@
+@media (max-width: 768px) {
+  #searchOptions {
+    display: none;
+  }
+
+  #searchOptions.active {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  #searchOptions.active form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  #searchOptions.active input {
+    flex: 1;
+  }
+
+  #searchOptions.active button[type="submit"] {
+    flex: none;
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+  }
+
+  #desktopSidebar {
+    display: none !important;
+  }
+}
+
+.sidebar-hidden {
+  display: none !important;
+}
