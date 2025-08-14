@@ -5,46 +5,43 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TUTORIAIS SAP MM</title>
+  <link rel="stylesheet" href="style.css" />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = { darkMode: 'class' };
+
   </script>
-  
+
   <script src="https://unpkg.com/@ui5/webcomponents@1.10.0/dist/Assets.js"></script>
-  
+
   <script src="https://unpkg.com/@ui5/webcomponents@1.10.0/dist/Icon.js"></script>
-  
+
   <script src="https://unpkg.com/@ui5/webcomponents-icons@1.10.0/dist/Assets.js"></script>
   <script src="https://unpkg.com/@ui5/webcomponents-icons@1.10.0/dist/SAP-icons.js"></script>
-
+  
 </head>
-
 
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300">
 
-  <!-- MOBILE SIDEBAR -->
   <div id="mobileMenu"
     class="fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-800 shadow-lg z-50 transform -translate-x-full transition-transform duration-200 md:hidden">
     <div class="p-4 font-bold text-lg text-yellow-600 dark:text-yellow-400">📚 Categorias</div>
     <nav id="mobileCategoryMenu" class="flex flex-col gap-1 px-4 mb-4"></nav>
     <button id="closeMenu" class="absolute top-2 right-2 text-gray-600 dark:text-gray-300 text-xl">✖</button>
   </div>
-  <!-- BOTÃO DE TOGGLE FIXO NO TOPO ESQUERDO -->
+
   <button id="toggleSidebar"
     class="fixed top-2 left-4 z-50 md:flex hidden items-center justify-center bg-white dark:bg-gray-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded-full w-10 h-10 shadow hover:scale-105 transition"
     title="Alternar menu lateral">
     <img src="img/lateral.png" alt="Menu" class="w-6 h-6" />
   </button>
 
-
-
-  <!-- FLEX CONTAINER PRINCIPAL -->
   <div class="flex min-h-screen">
 
-
     <!-- SIDEBAR DESKTOP -->
-    <aside id="desktopSidebar" class="transform w-64 bg-white dark:bg-gray-800 border-r dark:border-gray-700 flex flex-col
-              sticky top-0 max-h-screen overflow-y-auto transition-transform duration-200">
+    <aside id="desktopSidebar" class="md:flex flex-col transform w-64 bg-white dark:bg-gray-800 border-r dark:border-gray-700
+         sticky top-0 max-h-screen overflow-y-auto transition-transform duration-200">
       <div class="p-14 font-bold text-lg text-yellow-600 dark:text-yellow-400">📚 Categorias</div>
       <nav id="categoryMenu" class="flex flex-col gap-1 px-4 mb-4"></nav>
     </aside>
@@ -67,81 +64,87 @@
           <button id="openMenu" class="md:hidden text-2xl ml-auto text-gray-600 dark:text-gray-300">☰</button>
         </div>
 
-        <div class="flex flex-wrap items-center gap-3">
-          <a href="https://www.udemy.com/home/my-courses/learning/" target="_blank">
-            <img src="img/logo-udemy.svg" alt="Udemy" class="w-10 h-10 bg-white p-1 rounded shadow" />
+        <div class="flex flex-nowrap items-center gap-2 overflow-x-auto sm:overflow-visible">
+          <!-- Udemy -->
+          <a href="https://www.udemy.com/home/my-courses/learning/" target="_blank" title="Udemy">
+            <img src="img/logo-udemy.svg" alt="Udemy" class="w-8 h-8 bg-white p-1 rounded shadow" />
           </a>
+
+          <!-- Curso -->
           <a href="https://learning.sap.com/courses/sap-s-4hana-cloud-private-edition-sourcing-and-procurement"
-            target="_blank"
-            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium shadow transition">
-            📘 Curso
+            target="_blank" title="Curso"
+            class="bg-blue-600 hover:bg-blue-700 text-white w-8 h-8 flex items-center justify-center rounded shadow transition text-lg min-w-[2rem]">
+            📘
           </a>
-          <button id="openPdf"
-            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm font-medium shadow transition">
-            📄 PDF Aulas
+
+          <!-- PDF Aulas -->
+          <button id="openPdf" title="PDF Aulas"
+            class="bg-green-600 hover:bg-green-700 text-white w-8 h-8 flex items-center justify-center rounded shadow transition text-lg min-w-[2rem]">
+            📄
           </button>
-          <button id="toggle-dark"
-            class="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 px-4 py-2 rounded text-sm font-medium shadow transition">
-            🌙 Dark
+          
+          <!-- Buscar Mobile -->
+          <button id="toggleSearch" title="Mostrar opções de busca"
+            class="md:hidden bg-yellow-500 hover:bg-yellow-600 text-white w-8 h-8 flex items-center justify-center rounded shadow transition text-lg">
+            🔍
           </button>
+
+          <!-- Dark Mode -->
+          <button id="toggle-dark" title="Modo escuro"
+            class="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 w-8 h-8 flex items-center justify-center rounded shadow transition text-lg min-w-[2rem]">
+            <span id="dark-icon">🌙</span>
+          </button>
+
         </div>
+
       </header>
+     
+      <!-- BUSCAS ALINHADAS -->
+      <div id="searchOptions" class="hidden md:flex flex-wrap gap-3 items-center mb-8">
 
-      <!-- FIXED SEARCHES -->
-      <div
-        class="sticky top-[4.5rem] z-30 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 py-3 px-4 space-y-4">
+        <!-- BUSCA LOCAL -->
+        <form id="searchForm" class="flex-1 max-w-xs">
+          <input id="search" type="text" placeholder="🔍 Local"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded text-sm bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            oninput="window.inicializarSite()" />
+        </form>
 
-        <!-- BUSCAS ALINHADAS -->
-        <div class="flex flex-wrap gap-3 items-center mb-8">
+        <!-- BUSCA SAP DOCS -->
+        <form onsubmit="event.preventDefault(); window.open(
+      'https://help.sap.com/docs/search?q=' + encodeURIComponent(this.elements['sapQuery'].value),
+      '_blank'
+    );" class="flex items-center gap-1">
+          <input name="sapQuery" type="text" placeholder="🔍 SAP Docs"
+            class="w-36 px-2 py-2 border border-green-400 dark:border-green-600 rounded text-sm bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500" />
+          <button type="submit"
+            class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded text-sm shadow transition">
+            🔍
+          </button>
+        </form>
 
-          <!-- BUSCA LOCAL -->
-          <form id="searchForm" class="flex-1 max-w-xs">
-            <input id="search" type="text" placeholder="🔍 Pesquisar"
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded text-sm bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
-              oninput="window.inicializarSite()" />
-          </form>
+        <!-- BUSCA GOOGLE -->
+        <form action="https://www.google.com/search" method="get" target="_blank" class="flex items-center gap-1">
+          <input name="q" type="text" placeholder="Google"
+            class="w-36 px-2 py-2 border border-blue-400 dark:border-blue-600 rounded text-sm bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <button type="submit"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded text-sm shadow transition">🔍</button>
+        </form>
 
-          <!-- BUSCA SAP DOCS -->
-          <form onsubmit="event.preventDefault(); window.open(
-    'https://help.sap.com/docs/search?q=' + encodeURIComponent(this.elements['sapQuery'].value),
-    '_blank'
-  );" class="flex items-center gap-1">
-            <input name="sapQuery" type="text" placeholder="🔍 SAP Docs"
-              class="w-36 px-2 py-2 border border-green-400 dark:border-green-600 rounded text-sm bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500" />
-            <button type="submit"
-              class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded text-sm shadow transition">
-              🔍
-            </button>
-          </form>
-
-
-          <!-- BUSCA GOOGLE -->
-          <form action="https://www.google.com/search" method="get" target="_blank" class="flex items-center gap-1">
-            <input name="q" type="text" placeholder="Google"
-              class="w-36 px-2 py-2 border border-blue-400 dark:border-blue-600 rounded text-sm bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <button type="submit"
-              class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded text-sm shadow transition">🔍</button>
-          </form>
-
-          <!-- BUSCA YOUTUBE -->
-          <form action="https://www.youtube.com/results" method="get" target="_blank" class="flex items-center gap-1">
-            <input name="search_query" type="text" placeholder="YouTube"
-              class="w-36 px-2 py-2 border border-red-400 dark:border-red-600 rounded text-sm bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500">
-            <button type="submit"
-              class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded text-sm shadow transition">🔍</button>
-          </form>
-
-        </div>
-
+        <!-- BUSCA YOUTUBE -->
+        <form action="https://www.youtube.com/results" method="get" target="_blank" class="flex items-center gap-1">
+          <input name="search_query" type="text" placeholder="YouTube"
+            class="w-36 px-2 py-2 border border-red-400 dark:border-red-600 rounded text-sm bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500">
+          <button type="submit"
+            class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded text-sm shadow transition">🔍</button>
+        </form>
       </div>
 
-      <!-- CARDS -->
       <div id="services-grid" class="space-y-10"></div>
     </main>
   </div>
 
 
-  <!-- MODAL PDF -->
+
   <div id="pdfModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
     <div id="pdfWindow" class="relative bg-white w-[90%] h-[90%] rounded shadow-lg overflow-hidden flex flex-col">
       <div class="bg-gray-800 text-white px-4 py-2 flex justify-between items-center">
@@ -152,65 +155,14 @@
           <button id="closePdf" class="text-xs px-2 py-1 bg-red-600 hover:bg-red-700 rounded">✖</button>
         </div>
       </div>
-      <iframe id="pdfFrame" src="https://drive.google.com/file/d/1JhsICV5BJGNLQEIwoXzW7kN1M8I_Sb6I/preview"        
+      <iframe id="pdfFrame" src="https://drive.google.com/file/d/1JhsICV5BJGNLQEIwoXzW7kN1M8I_Sb6I/preview"
         class="w-full flex-1" frameborder="0" allowfullscreen>
       </iframe>
     </div>
   </div>
 
-
-
-  <!-- JS -->
   <script src="services.js"></script>
-  <script>
-    const pdfModal = document.getElementById('pdfModal');
-    const pdfWindow = document.getElementById('pdfWindow');
-    const openBtn = document.getElementById('openPdf');
-    const closeBtn = document.getElementById('closePdf');
-    const maximizeBtn = document.getElementById('maximize');
-    const minimizeBtn = document.getElementById('minimize');
 
-    openBtn.onclick = () => {
-      pdfModal.classList.remove('hidden');
-    };
-    closeBtn.onclick = () => pdfModal.classList.add('hidden');
-    maximizeBtn.onclick = () => {
-      pdfWindow.classList.replace('w-[600px]', 'w-[90%]');
-      pdfWindow.classList.replace('h-[400px]', 'h-[90%]');
-    };
-    minimizeBtn.onclick = () => {
-      pdfWindow.classList.replace('w-[90%]', 'w-[600px]');
-      pdfWindow.classList.replace('h-[90%]', 'h-[400px]');
-    };
-
-    document.getElementById("toggle-dark").addEventListener("click", () => {
-      document.documentElement.classList.toggle("dark");
-    });
-
-    document.getElementById("openMenu").addEventListener("click", () => {
-      document.getElementById("mobileMenu").classList.remove("-translate-x-full");
-    });
-
-    document.getElementById("closeMenu").addEventListener("click", () => {
-      document.getElementById("mobileMenu").classList.add("-translate-x-full");
-    });
-
-    document.getElementById("resetHome").addEventListener("click", e => {
-      e.preventDefault();
-      document.getElementById("search").value = '';
-      window.inicializarSite();
-    });
-
-
-    document.getElementById("toggleSidebar").addEventListener("click", () => {
-      const sidebar = document.getElementById("desktopSidebar");
-      sidebar.classList.toggle("hidden");
-    });
-  </script>
-
-
-
-  <!-- MODAL LOGIN -->
   <div id="loginOverlay" class="fixed inset-0 z-[9999] bg-black/40 backdrop-blur-sm flex items-center justify-center">
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full text-center space-y-4">
       <h2 class="text-xl font-semibold text-gray-800 dark:text-white">🔒 Área Protegida</h2>
@@ -222,68 +174,6 @@
       <p id="erroSenha" class="text-sm text-red-500 hidden">Senha incorreta.</p>
     </div>
   </div>
-
-  <!-- SCRIPT DE LOGIN -->
-  <script>
-    const senhaCodificada = "c2FwYWdlMjAyNQ==";
-    const overlay = document.getElementById("loginOverlay");
-    const senhaInput = document.getElementById("senhaInput");
-    const btnEntrar = document.getElementById("btnEntrar");
-    const erro = document.getElementById("erroSenha");
-
-    function desbloquearSite() {
-      overlay.remove();
-    }
-
-    btnEntrar.onclick = () => {
-      const senhaDigitada = senhaInput.value;
-      const senhaCorreta = atob(senhaCodificada);
-      if (senhaDigitada === senhaCorreta) {
-        desbloquearSite();
-      } else {
-        erro.classList.remove("hidden");
-      }
-    };
-
-    senhaInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") btnEntrar.click();
-    });
-
-    let acessoLiberado = false;
-
-    function inicializarSite() {
-      if (!acessoLiberado) return;
-
-      renderCards(sapServiceGroups);
-      renderCategoryMenu();
-      renderMobileCategoryMenu();
-    }
-
-    function desbloquearSite() {
-      acessoLiberado = true;
-      document.getElementById("loginOverlay")?.remove();
-      inicializarSite();
-    }
-
-    const observer = new MutationObserver(() => {
-      const modalExiste = document.getElementById("loginOverlay");
-      if (!modalExiste && !acessoLiberado) {
-        document.body.innerHTML = `<div class="min-h-screen flex items-center justify-center bg-black text-white text-xl font-bold">⛔ Acesso não autorizado.</div>`;
-      }
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    document.addEventListener("DOMContentLoaded", () => {
-      if (!acessoLiberado) {
-        console.warn("🔒 Conteúdo bloqueado - login não autorizado");
-        return;
-      }
-      inicializarSite();
-    });
-
-
-  </script>
 
 </body>
 
